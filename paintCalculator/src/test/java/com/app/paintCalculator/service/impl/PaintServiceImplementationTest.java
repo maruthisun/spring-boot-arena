@@ -41,7 +41,7 @@ public class PaintServiceImplementationTest {
     public void estimatePaintPriceTest() {
         when(paintRepository.save(new PaintDetails())).thenReturn(getPaintDetails());
         PaintResponse paintResponse = paintServiceImplementation.estimatePaint(getRoomDetails());
-        assertEquals("$ 195.0075", paintResponse.estimated_price());
+        assertEquals("$195.01", paintResponse.estimated_price());
     }
 
     @Test

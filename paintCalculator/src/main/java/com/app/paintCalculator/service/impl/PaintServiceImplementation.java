@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
+import java.text.ChoiceFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -68,8 +71,11 @@ public class PaintServiceImplementation implements PaintService {
 
         float price = paintQuantity * PRICE_PER_GALLON;
 
-        PaintResponse paintResponse = new PaintResponse(paintQuantity + " Gallon(s)", "$ " + price);
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
 
+        PaintResponse paintResponse = new PaintResponse(paintQuantity + " Gallon(s)", nf.format(price));
+
+        //Persist estimated details to the db for the user
         try {
             persistToDatabase(roomDetails, paintQuantity, price, totalDoorsArea, totalWindowsArea, trimRequired);
         } catch (SQLException sqlException) {
